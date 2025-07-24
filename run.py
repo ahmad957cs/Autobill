@@ -1,0 +1,8 @@
+# run.py (in backend folder)
+
+from auth_backend.create_app import create_app
+
+app = create_app()
+
+if __name__ == "__main__":
+    app.run(debug=True)

@@ -1,0 +1,361 @@
+{
+	"info": {
+		"_postman_id": "smartbillcalc-api-collection",
+		"name": "SmartBillCalc API",
+		"description": "Complete API collection for SmartBillCalc - OCR-powered bill calculation system",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "smartbillcalc"
+	},
+	"item": [
+		{
+			"name": "Health Check",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/health",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"health"
+					]
+				},
+				"description": "Check if the SmartBillCalc backend is running and healthy"
+			},
+			"response": [
+				{
+					"name": "Success Response",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/health",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"health"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"status\": \"healthy\",\n  \"message\": \"SmartBillCalc backend is running\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Process Bill Image (File Upload)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"type": "file",
+							"src": [],
+							"description": "Upload a bill image file (PNG, JPG, JPEG, GIF, BMP)"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/process_bill_image",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"process_bill_image"
+					]
+				},
+				"description": "Process a bill image by uploading a file. Supports multiple image formats."
+			},
+			"response": [
+				{
+					"name": "Success Response",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/process_bill_image",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"process_bill_image"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"success\": true,\n  \"extracted_text\": \"Milk 2 x 50 = 100\\nBread 1 x 30 = 30\\nTotal = 130\",\n  \"lines\": [\n    {\n      \"text\": \"Milk 2 x 50 = 100\",\n      \"numbers\": [2, 50],\n      \"calculated\": 100,\n      \"confidence\": 0.9\n    },\n    {\n      \"text\": \"Bread 1 x 30 = 30\",\n      \"numbers\": [1, 30],\n      \"calculated\": 30,\n      \"confidence\": 0.9\n    }\n  ],\n  \"total\": 130,\n  \"processing_time\": 0.245\n}"
+				}
+			]
+		},
+		{
+			"name": "Process Bill Image (Base64)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"image_data\": \"{{sample_base64_image}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/process_bill_image",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"process_bill_image"
+					]
+				},
+				"description": "Process a bill image using base64 encoded data. Perfect for mobile camera captures."
+			},
+			"response": [
+				{
+					"name": "Success Response",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"image_data\": \"{{sample_base64_image}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/process_bill_image",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"process_bill_image"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"success\": true,\n  \"extracted_text\": \"Milk 2 x 50 = 100\\nBread 1 x 30 = 30\\nTotal = 130\",\n  \"lines\": [\n    {\n      \"text\": \"Milk 2 x 50 = 100\",\n      \"numbers\": [2, 50],\n      \"calculated\": 100,\n      \"confidence\": 0.9\n    },\n    {\n      \"text\": \"Bread 1 x 30 = 30\",\n      \"numbers\": [1, 30],\n      \"calculated\": 30,\n      \"confidence\": 0.9\n    }\n  ],\n  \"total\": 130,\n  \"processing_time\": 0.245\n}"
+				}
+			]
+		},
+		{
+			"name": "Capture and Process (Mobile Camera)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"image_data\": \"{{sample_base64_image}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/capture_and_process",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"capture_and_process"
+					]
+				},
+				"description": "Dedicated endpoint for mobile camera captures. Accepts base64 encoded images from mobile devices."
+			},
+			"response": [
+				{
+					"name": "Success Response",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"image_data\": \"{{sample_base64_image}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/capture_and_process",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"capture_and_process"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"success\": true,\n  \"extracted_text\": \"Milk 2 x 50 = 100\\nBread 1 x 30 = 30\\nTotal = 130\",\n  \"lines\": [\n    {\n      \"text\": \"Milk 2 x 50 = 100\",\n      \"numbers\": [2, 50],\n      \"calculated\": 100,\n      \"confidence\": 0.9\n    },\n    {\n      \"text\": \"Bread 1 x 30 = 30\",\n      \"numbers\": [1, 30],\n      \"calculated\": 30,\n      \"confidence\": 0.9\n    }\n  ],\n  \"total\": 130,\n  \"processing_time\": 0.245\n}"
+				},
+				{
+					"name": "Error Response",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"image_data\": \"invalid_base64\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/capture_and_process",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"capture_and_process"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"success\": false,\n  \"error\": \"Error processing base64 image: Invalid base64 data\"\n}"
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"// Pre-request script to set up test data",
+					"if (pm.environment.get('sample_base64_image') === undefined) {",
+					"    // Set a placeholder for base64 image data",
+					"    pm.environment.set('sample_base64_image', 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==');",
+					"}"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"// Test script to validate responses",
+					"pm.test('Status code is 200', function () {",
+					"    pm.response.to.have.status(200);",
+					"});",
+					"",
+					"pm.test('Response has success field', function () {",
+					"    const response = pm.response.json();",
+					"    pm.expect(response).to.have.property('success');",
+					"});",
+					"",
+					"pm.test('Response time is less than 5 seconds', function () {",
+					"    pm.expect(pm.response.responseTime).to.be.below(5000);",
+					"});"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:5000",
+			"type": "string"
+		},
+		{
+			"key": "sample_base64_image",
+			"value": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==",
+			"type": "string"
+		}
+	]
+} 
